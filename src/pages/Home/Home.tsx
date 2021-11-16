@@ -1,45 +1,39 @@
 import React, { Component } from "react";
 import Card from "../../components/Card/Card";
 import { useState, useEffect } from 'react';
-import api from "../../environments/environment";
-import "./Home.scss"
+import "./Home.scss";
 import Loader from "../../components/Loader/Loader";
-import axios from "axios";
-
-export interface OfferItem {
-    anunciante: string;
-    categoria: string;
-    descricao_oferta: string;
-    destaque: boolean;
-    id: number;
-    imagens?: any
-    titulo: string;
-    valor: number;
-}
+import { getOffer } from "../../services/offer.service";
+import { OfferItem } from "../../models/offer-item.models";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
 
     const [offer, setOffer] = useState([]);
     const [loader, setLoaderState] = useState(true);
 
-    function getOffer() {
-        axios.get(`${api.baseURL}/ofertas`).then(
-            (response) => {
-                setOffer(response.data);
-                setLoaderState(false);
-            }
-        ).catch((err) => {
-            console.log(err);
-        })
+    const navigate = useNavigate()
+
+    async function getData() {
+        try {
+            let response = await getOffer;
+            setOffer(response);
+            setLoaderState(false);
+        } catch (error) {
+            console.log('offer',offer);
+            setLoaderState(false);
+            navigate('/erro');
+        }
     }
 
     useEffect(() => {
-        getOffer()
+        getData();
     }, []);
 
     return (
+        offer.length !== 0 ?
         <section className="c-card">
-            {offer?.map((offerItem: OfferItem) => {
+            {offer.map((offerItem: OfferItem) => {
                 return (
                     <div key={offerItem.id}>
                         <Card>
@@ -51,9 +45,9 @@ export default function Home() {
                             </div>
                         </Card>
                     </div>
-                )
-            })}
+                );
+            })};
             <Loader isLoading={loader}></Loader>
-        </section>
-    )
+        </section>: <p></p>
+    );
 }
