@@ -1,0 +1,16 @@
+button {
+    outline: none;
+    font-size: 1.5rem;
+    padding: 0.5em;
+    border: var(--shadow) 0.125em solid;
+    border-radius: 0.25em;
+    color: var(--shadow);
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: var(--shadow);
+    color: var(--gray);
+    border: var(--orange) 0.125em solid;
+}
