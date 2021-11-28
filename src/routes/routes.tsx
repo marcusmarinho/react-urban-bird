@@ -1,23 +1,42 @@
-import React from 'react';
+import HomePage from '../pages/Home/Home';
+import ErrorPage from '../pages/Error/Error';
+import React, { FC } from 'react';
 import {
     Routes, Route
 } from 'react-router-dom';
-import Fun from '../pages/Fun/Fun';
 
-import Home from '../pages/Home/Home';
-import MyOrdens from '../pages/MyOrders/MyOrdens';
-import Restaurants from '../pages/Restaurants/Restaurants';
-import Error from '../pages/Error/Error';
+const FunPage = React.lazy(() => import('../pages/Fun/Fun'));
+const MyOrdersPage = React.lazy(() => import('../pages/MyOrders/MyOrdens'));
+const RestaurantsPage = React.lazy(() => import('../pages/Restaurants/Restaurants'));
 
-export default function MainRoutes() {
+const MainRoutes: FC = (props) => {
     return (
         <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/restaurantes" element={<Restaurants />}></Route>
-            <Route path="/pedidos" element={<MyOrdens />}></Route>
-            <Route path="/diversao" element={<Fun />}></Route>
-            <Route path="/erro" element={<Error />}></Route>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route path="/restaurantes"
+                element={
+                    <React.Suspense fallback={<>...</>}>
+                        <RestaurantsPage />
+                    </React.Suspense>
+                }>
+            </Route>
+            <Route path="/pedidos"
+                element={
+                    <React.Suspense fallback={<>...</>}>
+                        <MyOrdersPage />
+                    </React.Suspense>
+                }>
+            </Route>
+            <Route path="/diversao"
+                element={
+                    <React.Suspense fallback={<>...</>}>
+                        <FunPage />
+                    </React.Suspense>
+                }>
+            </Route>
+            <Route path="/erro" element={<ErrorPage />}></Route>
         </Routes>
     )
-
 }
+
+export default MainRoutes;
