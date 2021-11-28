@@ -1,9 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 
-export default () => {
+const MyOrdersPage:FC =  (props) => {
     return (
         <div>
             <p>Meus pedidos</p>
         </div>
-    )
+    );
 }
+
+export default MyOrdersPage;

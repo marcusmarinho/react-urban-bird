@@ -1,9 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 
-export default () => {
+const RestaurantsPage:FC = (props) => {
     return (
         <div>
             <p>RESTURANTE</p>
         </div>
-    )
-}
+    );
+};
+
+export default RestaurantsPage;

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
 import '../Header/Header.scss';
-export default (props:any) => {
+
+const Header:FC = (props) => {
     return (
         <nav>
             <NavLink to='/' >Home</NavLink >
@@ -10,5 +11,7 @@ export default (props:any) => {
             <NavLink to='/pedidos' >Pedidos</NavLink>
             <NavLink to='/welcome' >Carrinho</NavLink>
         </nav>
-    )
+    );
 }
+
+export default Header

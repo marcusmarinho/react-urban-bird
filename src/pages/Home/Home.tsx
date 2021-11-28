@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { FC } from "react";
 import Card from "../../components/Card/Card";
 import { useState, useEffect } from 'react';
 import "./Home.scss";
@@ -7,7 +7,7 @@ import { getOffer } from "../../services/offer.service";
 import { OfferItem } from "../../models/offer-item.models";
 import { useNavigate } from "react-router-dom";
 
-export default function Home() {
+const HomePage:FC = (props) => {
 
     const [offer, setOffer] = useState([]);
     const [loader, setLoaderState] = useState(true);
@@ -20,7 +20,7 @@ export default function Home() {
             setOffer(response);
             setLoaderState(false);
         } catch (error) {
-            console.log('offer',offer);
+            console.log('error',error);
             setLoaderState(false);
             navigate('/erro');
         }
@@ -48,6 +48,8 @@ export default function Home() {
                 );
             })};
             <Loader isLoading={loader}></Loader>
-        </section>: <p></p>
+        </section> : <p></p>
     );
 }
+
+export default HomePage;

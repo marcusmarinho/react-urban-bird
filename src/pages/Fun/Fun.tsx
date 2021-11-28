@@ -1,9 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 
-export default () => {
+const FunPage:FC = (props) => {
     return (
         <div>
             <p>Fun</p>
         </div>
     )
 }
+
+export default FunPage;

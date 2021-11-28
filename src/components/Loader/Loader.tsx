@@ -1,5 +1,11 @@
+import { FC } from 'react';
 import '../Loader/Loader.scss';
-export default (props: any) => {
+
+interface LoaderProps {
+    isLoading: boolean;
+}
+
+const Loader:FC<LoaderProps> = (props) => {
     const isLoading: boolean = props.isLoading;
     return (
         <div>
@@ -9,5 +15,7 @@ export default (props: any) => {
                 </div>
             }
         </div>
-    )
+    );
 }
+
+export default Loader

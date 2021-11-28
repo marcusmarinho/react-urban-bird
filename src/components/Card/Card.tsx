@@ -1,10 +1,13 @@
 
+import { FC } from 'react';
 import './Card.scss';
-export default (props: any) => {
 
+const Card:FC = (props) => {
     return (
         <div className="content">
           {props.children}
         </div>
-    )
+    );
 }
+
+export default Card;
