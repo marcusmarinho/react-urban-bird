@@ -1,0 +1,21 @@
+.c-erro, c-msg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.c-msg {
+    font-size: 22px;
+    line-height: 36px;
+    font-weight: 600;
+    text-align: center;
+}
+.c-erro {
+    height: calc(80vh - 20px);
+}
+
+.c-icon {
+    background: url(../../assets/icons/error-icon.png) no-repeat center;
+    height: 200px;
+    width: 200px;
+}
