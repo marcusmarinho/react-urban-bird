@@ -1,0 +1,101 @@
+import React from 'react';
+import { FC, useContext, useEffect, useState } from "react";
+import { useParams } from "react-router";
+import CustomButton from "../../components/Button/Button";
+import { WalletItem } from "../../models/wallet.model";
+import { DetailOffer } from "../../models/detail.model";
+import { getAddtionalInfo, getDetails, getLocation } from "../../services/offer.service";
+import {CartContext, EmptyContextProvider} from "../../context/Cart.context";
+import './Detail.scss';
+
+const DetailPage: FC = (props) => {
+
+    const params = useParams();
+
+    const [data, setData] = useState<DetailOffer>();
+
+    let {criteria} = useContext(EmptyContextProvider);
+
+    const {products} = useContext(CartContext);
+
+    const {setAnimateWallet} = useContext(EmptyContextProvider);
+
+    async function getOffer() {
+        try {
+            let response = await getDetails(params.id);
+            return response;
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+
+    async function getInfo() {
+        try {
+            let response = await getAddtionalInfo(params.id);
+            return response;
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+
+    async function getDataLocation() {
+        try {
+            let response = await getLocation(params.id);
+            return response;
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+
+    async function getServices() {
+        const location = await getDataLocation();
+        const info = await getInfo();
+        const detail = await getOffer();
+        setData({
+            location,
+            info,
+            detail
+        });
+    }
+
+    function addToWallet(offer: any): void {
+  
+        criteria = products?.find((item: WalletItem) => item.id === offer.detail.id);
+
+        setAnimateWallet(true);
+
+        if (criteria) {
+            criteria.quantidade += 1;
+        } else {
+            const cartItem: WalletItem = {
+                id: offer.detail.id,
+                img: offer.detail.imagens[0],
+                titulo: offer.detail.titulo,
+                descricao_oferta: offer.detail.descricao_oferta,
+                valor: offer.detail.valor,
+                quantidade: 1
+            }
+            products?.push(cartItem);
+        }
+        setTimeout(setAnimateDefault, 1000);
+    }
+
+    function setAnimateDefault() {
+        setAnimateWallet(false);
+    }
+    
+    useEffect(() => {
+        getServices();
+    }, []);
+
+    return (
+        data ?
+            <div className="c-detail">
+                <div className="botao1">
+                    <CustomButton label="Add To Wallet" onClickFunc={() => addToWallet(data)}></CustomButton>
+                </div>
+            </div> : <span>Loading...</span>
+    )
+}
+
+export default DetailPage;

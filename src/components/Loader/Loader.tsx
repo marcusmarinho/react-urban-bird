@@ -1,5 +1,6 @@
+import React from 'react';
 import { FC } from 'react';
-import '../Loader/Loader.scss';
+import './Loader.scss';
 
 interface LoaderProps {
     isLoading: boolean;

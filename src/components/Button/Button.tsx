@@ -1,8 +1,9 @@
+import React from 'react';
 import { FC } from 'react';
-import '../Button/Button.scss';
+import './Button.scss';
 
 interface ButtonProps {
-    onClickFunc: () => void;
+    onClickFunc: any;
     label: string;
 }
 

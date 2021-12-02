@@ -1,14 +1,13 @@
-import React, { FC } from "react";
+import React from 'react';
+import { FC } from "react";
 import { useNavigate } from "react-router";
-
+import "./Error.scss";
 import CustomButton from "../../components/Button/Button";
 
-import "./Error.scss";
 
 const ErrorPage: FC = function (props) {
   let navigate = useNavigate();
   function teste() {
-    console.log("navegou");
     navigate(`/diversao`);
   }
 

@@ -1,29 +1,41 @@
+import React from 'react';
 import { FC } from "react";
 import Card from "../../components/Card/Card";
 import { useState, useEffect } from 'react';
 import "./Home.scss";
 import Loader from "../../components/Loader/Loader";
-import { getOffer } from "../../services/offer.service";
+import { getOffers } from "../../services/offer.service";
 import { OfferItem } from "../../models/offer-item.models";
 import { useNavigate } from "react-router-dom";
+import img1 from '../../assets/ofertas/1/img1.jpg';
+import img2 from '../../assets/ofertas/2/img2.jpg';
+import img3 from '../../assets/ofertas/3/img1.jpg';
+import img4 from '../../assets/ofertas/4/img1.jpg';
+import img5 from '../../assets/ofertas/5/img1.jpg';
+import img6 from '../../assets/ofertas/6/img1.jpg';
+const HomePage: FC = (props) => {
 
-const HomePage:FC = (props) => {
-
-    const [offer, setOffer] = useState([]);
+    const [offers, setOffer] = useState([]);
     const [loader, setLoaderState] = useState(true);
 
-    const navigate = useNavigate()
+    const imgArray = [img1, img2, img3, img4, img5, img6];
+
+    const navigate = useNavigate();
 
     async function getData() {
         try {
-            let response = await getOffer;
+            let response = await getOffers;
             setOffer(response);
             setLoaderState(false);
         } catch (error) {
-            console.log('error',error);
+            console.log('error', error);
             setLoaderState(false);
             navigate('/erro');
         }
+    }
+
+    function navigateToDetail(offerId: any) {
+        navigate(`/detalhe/${offerId}`);
     }
 
     useEffect(() => {
@@ -31,24 +43,23 @@ const HomePage:FC = (props) => {
     }, []);
 
     return (
-        offer.length !== 0 ?
-        <section className="c-card">
-            {offer.map((offerItem: OfferItem) => {
-                return (
-                    <div key={offerItem.id}>
-                        <Card>
-                            <div className="card">
-                                <h2>{offerItem.titulo}</h2>
-                                <p>{offerItem.categoria}</p>
-                                <img className="card--img" src={`${offerItem.imagens[0].url}`}></img>
-                                <p>{offerItem.descricao_oferta}</p>
-                            </div>
-                        </Card>
-                    </div>
-                );
-            })};
-            <Loader isLoading={loader}></Loader>
-        </section> : <p></p>
+        offers.length !== 0 ?
+            <section className="c-card">
+                {offers.map((offerItem: OfferItem, idx: number) => {
+                    return (
+                        <div key={offerItem.id} onClick={() => navigateToDetail(offerItem.id)}>
+                            <Card>
+                                <div className="card">
+                                    <h2>{offerItem.titulo}</h2>
+                                    <p className="card--subtitle">Categoria {offerItem.categoria}</p>
+                                    <img src={imgArray[idx]}></img>
+                                    <p>{offerItem.descricao_oferta}</p>
+                                </div>
+                            </Card>
+                        </div>
+                    );
+                })};
+            </section> : <Loader isLoading={loader}></Loader>
     );
 }
 
