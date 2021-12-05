@@ -7,6 +7,7 @@ import { DetailOffer } from "../../models/detail.model";
 import { getAddtionalInfo, getDetails, getLocation } from "../../services/offer.service";
 import {WalletContextProvider, EmptyContextProvider} from "../../context/Wallet.context";
 import styles from './Detail.module.scss';
+import Loader from '../../components/Loader/Loader';
 
 const DetailPage: FC = (props) => {
 
@@ -17,6 +18,8 @@ const DetailPage: FC = (props) => {
     let {criteria, setAnimateWallet} = useContext(EmptyContextProvider);
 
     const { products, setProducts} = useContext(WalletContextProvider);
+
+    const [loader, setLoaderState] = useState(true);
 
 
     async function getOffer() {
@@ -55,6 +58,7 @@ const DetailPage: FC = (props) => {
             info,
             detail
         });
+        setLoaderState(false);
     }
 
     function addToWallet(offer: any): void {
@@ -97,7 +101,7 @@ const DetailPage: FC = (props) => {
                 <div className="botao1">
                     <CustomButton label="Add To Wallet" onClickFunc={() => addToWallet(data)}></CustomButton>
                 </div>
-            </div> : <span>Loading...</span>
+            </div> : <Loader isLoading={loader}></Loader>
     )
 }
 

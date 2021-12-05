@@ -7,9 +7,7 @@ import CustomButton from "../../components/Button/Button";
 
 const ErrorPage: FC = function (props) {
   let navigate = useNavigate();
-  function teste() {
-    navigate(`/diversao`);
-  }
+
 
   return (
     <div className={styles.cErro}>
@@ -18,7 +16,7 @@ const ErrorPage: FC = function (props) {
         <p>Tente novamente mais tarde</p>
       </div>
       <div className={styles.cIcon}></div>
-      <CustomButton label="Voltar" onClickFunc={teste} />
+      <CustomButton label="Voltar" onClickFunc={() => navigate('/')} />
     </div>
   );
 };

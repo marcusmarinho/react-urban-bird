@@ -4,6 +4,7 @@ import CustomButton from '../../components/Button/Button';
 import CollapBox from '../../components/CollapBox/CollapBox';
 import { WalletContextProvider } from "../../context/Wallet.context";
 import { WalletItem } from "../../models/wallet.model";
+import EmptyWalletPage from './EmptyWallet/EmptyWallet';
 import styles from "./Wallet.module.scss";
 
 const CartPage: FC = (props) => {
@@ -68,7 +69,7 @@ const CartPage: FC = (props) => {
                         </div>
                     );
                 })}
-            </section> : <p>carrinho vazio</p>
+            </section> : <EmptyWalletPage></EmptyWalletPage>
     )
 }
 
