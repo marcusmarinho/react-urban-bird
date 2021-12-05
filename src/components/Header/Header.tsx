@@ -3,7 +3,7 @@ import { FC, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { useNavigate } from "react-router-dom";
-import { EmptyContextProvider } from "../../context/Cart.context";
+import { EmptyContextProvider } from "../../context/Wallet.context";
 
 const Header:FC = (props) => {
     const navigate = useNavigate();

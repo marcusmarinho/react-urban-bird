@@ -8,7 +8,7 @@ interface EmptyContext {
     setAnimateWallet?: any;
 }
 
-export const CartContext = createContext<Wallet>({ products: [] });
+export const WalletContextProvider = createContext<Wallet>({ products: [], setProducts: null });
 
 export let EmptyContextProvider = createContext<EmptyContext>({criteria: undefined , animate: null, setAnimateWallet: null});
 

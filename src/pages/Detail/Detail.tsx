@@ -5,7 +5,7 @@ import CustomButton from "../../components/Button/Button";
 import { WalletItem } from "../../models/wallet.model";
 import { DetailOffer } from "../../models/detail.model";
 import { getAddtionalInfo, getDetails, getLocation } from "../../services/offer.service";
-import {CartContext, EmptyContextProvider} from "../../context/Cart.context";
+import {WalletContextProvider, EmptyContextProvider} from "../../context/Wallet.context";
 import styles from './Detail.module.scss';
 
 const DetailPage: FC = (props) => {
@@ -16,7 +16,7 @@ const DetailPage: FC = (props) => {
 
     let {criteria, setAnimateWallet} = useContext(EmptyContextProvider);
 
-    let {products, setProducts} = useContext(CartContext);
+    const { products, setProducts} = useContext(WalletContextProvider);
 
 
     async function getOffer() {
@@ -65,6 +65,7 @@ const DetailPage: FC = (props) => {
 
         if (criteria) {
             criteria.quantidade += 1;
+            setProducts([...products]);
         } else {
             const cartItem: WalletItem = {
                 id: offer.detail.id,
@@ -76,6 +77,8 @@ const DetailPage: FC = (props) => {
             }
 
             products?.push(cartItem)
+            setProducts([...products]);
+            
         }
         setTimeout(setAnimateDefault, 1000);
     }

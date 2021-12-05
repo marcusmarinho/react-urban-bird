@@ -17,6 +17,7 @@ import img6 from '../../assets/ofertas/6/img1.jpg';
 const HomePage: FC = (props) => {
 
     const [offers, setOffer] = useState([]);
+
     const [loader, setLoaderState] = useState(true);
 
     const imgArray = [img1, img2, img3, img4, img5, img6];
