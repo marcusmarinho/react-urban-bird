@@ -1,7 +1,7 @@
 import React from 'react';
 import { FC } from "react";
 import { useNavigate } from "react-router";
-import "./Error.scss";
+import styles from "./Error.module.scss";
 import CustomButton from "../../components/Button/Button";
 
 
@@ -12,12 +12,12 @@ const ErrorPage: FC = function (props) {
   }
 
   return (
-    <div className="c-erro">
-      <div className="c-msg">
+    <div className={styles.cErro}>
+      <div className={styles.cMsg}>
         <p>Algo aconteceu e não conseguimos apresentar a pagina.</p>
         <p>Tente novamente mais tarde</p>
       </div>
-      <div className="c-icon"></div>
+      <div className={styles.cIcon}></div>
       <CustomButton label="Voltar" onClickFunc={teste} />
     </div>
   );

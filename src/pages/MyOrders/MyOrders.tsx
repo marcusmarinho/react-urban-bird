@@ -1,6 +1,6 @@
 import React from 'react';
 import { FC } from "react";
-import "./MyOrders.scss";
+import styles from "./MyOrders.module.scss";
 
 const MyOrdersPage:FC =  (props) => {
     return (

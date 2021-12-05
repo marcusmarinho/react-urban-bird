@@ -1,4 +1,4 @@
-.c-card {
+.cCard {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -20,7 +20,7 @@
         font-size: 26px;
     }
 
-    &--subtitle {
+    .cardSubtitle {
         font-weight: 600;
         font-size: 18px;
     }

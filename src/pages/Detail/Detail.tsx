@@ -6,7 +6,7 @@ import { WalletItem } from "../../models/wallet.model";
 import { DetailOffer } from "../../models/detail.model";
 import { getAddtionalInfo, getDetails, getLocation } from "../../services/offer.service";
 import {CartContext, EmptyContextProvider} from "../../context/Cart.context";
-import './Detail.scss';
+import styles from './Detail.module.scss';
 
 const DetailPage: FC = (props) => {
 
@@ -14,11 +14,10 @@ const DetailPage: FC = (props) => {
 
     const [data, setData] = useState<DetailOffer>();
 
-    let {criteria} = useContext(EmptyContextProvider);
+    let {criteria, setAnimateWallet} = useContext(EmptyContextProvider);
 
-    const {products} = useContext(CartContext);
+    let {products, setProducts} = useContext(CartContext);
 
-    const {setAnimateWallet} = useContext(EmptyContextProvider);
 
     async function getOffer() {
         try {
@@ -59,7 +58,7 @@ const DetailPage: FC = (props) => {
     }
 
     function addToWallet(offer: any): void {
-  
+      
         criteria = products?.find((item: WalletItem) => item.id === offer.detail.id);
 
         setAnimateWallet(true);
@@ -75,7 +74,8 @@ const DetailPage: FC = (props) => {
                 valor: offer.detail.valor,
                 quantidade: 1
             }
-            products?.push(cartItem);
+
+            products?.push(cartItem)
         }
         setTimeout(setAnimateDefault, 1000);
     }
@@ -90,7 +90,7 @@ const DetailPage: FC = (props) => {
 
     return (
         data ?
-            <div className="c-detail">
+            <div className={styles.cDetail}>
                 <div className="botao1">
                     <CustomButton label="Add To Wallet" onClickFunc={() => addToWallet(data)}></CustomButton>
                 </div>

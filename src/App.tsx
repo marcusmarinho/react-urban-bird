@@ -9,12 +9,13 @@ export default function App() {
   const [animate, setAnimateWallet] = useState();
   return (
     <section>
-      <EmptyContextProvider.Provider value={{ animate, setAnimateWallet }}>
-        <Header />
-        <div className="container">
-          <MainRoutes />
-        </div>
-      </EmptyContextProvider.Provider>
+        <EmptyContextProvider.Provider value={{ animate, setAnimateWallet }}>
+          <Header />
+          <div className="container">
+            <MainRoutes />
+          </div>
+        </EmptyContextProvider.Provider>
+
     </section>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FC } from 'react';
-import './Button.scss';
+import styles from './Button.module.scss';
 
 interface ButtonProps {
     onClickFunc: any;
@@ -11,7 +11,7 @@ const CustomButton:FC<ButtonProps> = (props) => {
     const func = props.onClickFunc;
     return (
         <div>
-            <button onClick={func} className="button">{props.label}</button>
+            <button onClick={func} className={styles.button}>{props.label}</button>
         </div>
     );
 }

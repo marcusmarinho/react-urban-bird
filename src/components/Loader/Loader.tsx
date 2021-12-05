@@ -1,6 +1,6 @@
 import React from 'react';
 import { FC } from 'react';
-import './Loader.scss';
+import styles from './Loader.module.scss';
 
 interface LoaderProps {
     isLoading: boolean;
@@ -11,8 +11,8 @@ const Loader:FC<LoaderProps> = (props) => {
     return (
         <div>
             {isLoading &&
-                <div className="overlay">
-                    <div className="spinner"></div>
+                <div className={styles.overlay}>
+                    <div className={styles.spinner}></div>
                 </div>
             }
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FC } from "react";
-import "./Fun.scss";
+import styles from "./Fun.module.scss";
 
 const FunPage:FC = (props) => {
     return (

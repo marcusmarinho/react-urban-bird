@@ -9,4 +9,5 @@ export interface WalletItem {
 
 export interface Wallet {
     products?: WalletItem[];
+    setProducts?: any
 }

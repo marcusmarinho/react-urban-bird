@@ -20,7 +20,7 @@ nav {
     }
 }
 
-.wallet-ico, .wallet-ico-swing {
+.walletIco, .walletIcoSwing {
     width: 100px;
     height: 100px;
     background: url(../../assets/icons/wallet-svg.svg) no-repeat center;
@@ -29,7 +29,7 @@ nav {
     animation-name: none;
 }
 
-.wallet-ico-swing {
+.walletIcoSwing {
     animation-name: swing;
     animation-duration: 1s;
 }

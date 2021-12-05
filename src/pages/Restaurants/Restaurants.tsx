@@ -1,6 +1,6 @@
 import React from 'react';
 import { FC } from "react";
-import "./Restaurants.scss";
+import styles from "./Restaurants.module.scss";
 
 const RestaurantsPage:FC = (props) => {
     return (
