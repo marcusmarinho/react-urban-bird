@@ -11,6 +11,17 @@
 .walletInfo {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cWalletContent {
+}
+
+.cWalletHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .walletButtons {

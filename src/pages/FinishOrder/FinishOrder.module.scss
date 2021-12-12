@@ -1,0 +1,45 @@
+.cFinishOrder {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    width: 100%;
+    background: var(--white);
+    border-radius: 1rem;
+    height: 70vh;
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputText, .inputSelect {
+    width: 20rem;
+    outline: none !important;
+    margin: 1rem;
+    height: 1rem;
+    border: var(--shadow) 0.125em solid;
+    border-radius: 1.25em;
+    transition: 0.3s;
+}
+
+.inputSelect {
+    height: 2rem;
+}
+
+.inputSelect:focus {
+    border: var(--orange) 0.225em solid;
+    border-radius: 2.25em;
+}
+
+.inputText:focus {
+    height: 1.5rem;
+    border: var(--orange) 0.225em solid;
+    border-radius: 2.25em;
+}

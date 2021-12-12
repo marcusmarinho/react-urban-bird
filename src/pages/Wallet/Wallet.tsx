@@ -1,5 +1,6 @@
 import React from 'react';
 import { FC, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/Button/Button';
 import CollapBox from '../../components/CollapBox/CollapBox';
 import { WalletContextProvider } from "../../context/Wallet.context";
@@ -8,6 +9,8 @@ import EmptyWalletPage from './EmptyWallet/EmptyWallet';
 import styles from "./Wallet.module.scss";
 
 const CartPage: FC = (props) => {
+
+    const navigate = useNavigate();
 
     const { products, setProducts } = useContext(WalletContextProvider);
 
@@ -42,11 +45,24 @@ const CartPage: FC = (props) => {
         }
     }
 
+    function walletTotalPrice(): string {
+        let total = 0;
+        products?.forEach((item: WalletItem) => {
+            total += (item.valor * item.quantidade);
+        });
+        return total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+    }
+
     return (
         products?.length !== 0 ?
             <section className={styles.cWallet}>
                 <h2>Abaixo os produtos que você selecionou:</h2>
                 <div className={styles.divider}></div>
+                <div className={styles.cWalletHeader}>
+                    <p>{walletTotalPrice()}</p>
+                    <CustomButton label="Finalizar Compra" onClickFunc={() => navigate('/finalizar-pedido')}></CustomButton>
+                </div>
+
                 {products?.map((wItem: WalletItem, idx: number) => {
                     return (
                         <div className={styles.cWalletContent} key={wItem.id}>
