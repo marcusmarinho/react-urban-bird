@@ -6,6 +6,8 @@ interface EmptyContext {
     criteria?: any;
     animate?: any;
     setAnimateWallet?: any;
+    modal?: any;
+    setModal?: any;
 }
 
 export const WalletContextProvider = createContext<Wallet>({ products: [], setProducts: null });

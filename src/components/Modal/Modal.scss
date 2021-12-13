@@ -1,0 +1,81 @@
+#modal-container {
+    position: fixed;
+    display: table;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    z-index: 1;
+    &.two {
+        transform: scale(1);
+        .modal-background {
+            background: rgba(0, 0, 0, 0);
+            animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            .modal {
+                opacity: 0;
+                animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            }
+        }
+        + .content {
+            animation: scaleBack 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+    }
+}
+
+.closeIco {
+    position: absolute;
+    margin-top: 8px;
+    margin-right: 16px;
+    right: 0;
+    background: url(../../assets/icons/close.svg) no-repeat center;
+    height: 80px;
+    width: 80px;
+    cursor: pointer;
+}
+
+.modal-background {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background: white;
+    width: 70vh;
+    height: 50vh;
+    border-radius: 1rem;
+}
+
+@keyframes fadeIn {
+    0% {
+        background: rgba(0, 0, 0, 0);
+    }
+    100% {
+        background: rgba(0, 0, 0, 0.7);
+    }
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.8) translateY(1000px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0px);
+        opacity: 1;
+    }
+}
+@keyframes scaleBack {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.85);
+    }
+}

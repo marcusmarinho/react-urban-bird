@@ -1,4 +1,4 @@
-button {
+.button {
     outline: none;
     font-size: 1.5rem;
     padding: 0.5em;
@@ -10,7 +10,7 @@ button {
     width: 100%;
 }
 
-button:hover {
+.button:hover {
     background: var(--shadow);
     color: var(--gray);
     border: var(--orange) 0.125em solid;

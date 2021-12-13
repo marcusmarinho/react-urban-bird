@@ -10,7 +10,6 @@ const FunPage = React.lazy(() => import('../pages/Fun/Fun'));
 const MyOrdersPage = React.lazy(() => import('../pages/MyOrders/MyOrders'));
 const RestaurantsPage = React.lazy(() => import('../pages/Restaurants/Restaurants'));
 const DetailPage = React.lazy(() => import('../pages/Detail/Detail'));
-const FinishOrderPage = React.lazy(() => import('../pages/FinishOrder/FinishOrder'));
 
 const MainRoutes: FC = (props) => {
     return (
@@ -37,14 +36,6 @@ const MainRoutes: FC = (props) => {
                 element={
                     <React.Suspense fallback={<>...</>}>
                         <FunPage />
-                    </React.Suspense>
-                }>
-            </Route>
-
-            <Route path="/finalizar-pedido"
-                element={
-                    <React.Suspense fallback={<>...</>}>
-                        <FinishOrderPage />
                     </React.Suspense>
                 }>
             </Route>

@@ -3,7 +3,8 @@ import { FC, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/Button/Button';
 import CollapBox from '../../components/CollapBox/CollapBox';
-import { WalletContextProvider } from "../../context/Wallet.context";
+import Modal from '../../components/Modal/Modal';
+import { EmptyContextProvider, WalletContextProvider } from "../../context/Wallet.context";
 import { WalletItem } from "../../models/wallet.model";
 import EmptyWalletPage from './EmptyWallet/EmptyWallet';
 import styles from "./Wallet.module.scss";
@@ -13,6 +14,8 @@ const CartPage: FC = (props) => {
     const navigate = useNavigate();
 
     const { products, setProducts } = useContext(WalletContextProvider);
+
+    const {modal, setModal } = useContext(EmptyContextProvider);
 
     function changeQuantity(itemCarrinho: WalletItem, soma?: boolean): void {
         const foundItemWallet = products.find((item: WalletItem) => item.id === itemCarrinho.id) || {
@@ -53,15 +56,23 @@ const CartPage: FC = (props) => {
         return total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
     }
 
+    function teste() {
+        setModal('two');
+    }
+
     return (
         products?.length !== 0 ?
             <section className={styles.cWallet}>
                 <h2>Abaixo os produtos que você selecionou:</h2>
                 <div className={styles.divider}></div>
-                <div className={styles.cWalletHeader}>
-                    <p>{walletTotalPrice()}</p>
-                    <CustomButton label="Finalizar Compra" onClickFunc={() => navigate('/finalizar-pedido')}></CustomButton>
-                </div>
+                <CustomButton label='Finalizar Compra' onClickFunc={() => teste()}></CustomButton>
+                
+
+                <Modal>
+                    <div>
+                        HUAHUAHUAHUAHUAHUAHUAH
+                    </div>
+                </Modal>
 
                 {products?.map((wItem: WalletItem, idx: number) => {
                     return (

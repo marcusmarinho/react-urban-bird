@@ -8,10 +8,11 @@ export default function App() {
   useContext(EmptyContextProvider);
   useContext(WalletContextProvider);
   const [animate, setAnimateWallet] = useState();
+  const [modal, setModal] = useState('');
   const [products, setProducts] = useState([]);
   return (
     <section>
-        <EmptyContextProvider.Provider value={{ animate, setAnimateWallet }}>
+        <EmptyContextProvider.Provider value={{ animate, setAnimateWallet, modal, setModal }}>
           <WalletContextProvider.Provider value={{ products, setProducts }}>
           <Header />
           <div className="container">
