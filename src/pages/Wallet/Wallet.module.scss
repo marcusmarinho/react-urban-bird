@@ -15,7 +15,49 @@
     align-items: center;
 }
 
-.cWalletContent {
+.formWallet {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    h2 {
+        margin-bottom: 1rem;
+    }
+}
+
+.customInput {
+    margin: 1rem;
+    input {
+        height: 2rem;
+        width: 20rem;
+        outline: none;
+        border: 2px var(--shadow) solid;
+        border-radius: 2rem;
+        transition: 0.3s;
+    }
+    input:focus, select:focus {
+        border: var(--orange) 2px solid;
+        margin-left: 1rem;
+    }
+
+    select {
+        height: 38px;
+        width: 20rem;
+        outline: none;
+        border: 2px var(--shadow) solid;
+        border-radius: 2rem;
+        transition: 0.3s;
+    }
+
+    label {
+        margin-right: 1rem;
+    }
+    
+}
+
+
+.formWallet:nth-child(n) {
+    margin: 1rem;
 }
 
 .cWalletHeader {

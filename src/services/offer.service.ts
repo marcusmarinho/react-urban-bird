@@ -24,3 +24,15 @@ export async function getDetails(offerId: any) {
     return response.data;
 }
 
+export async function accomplishPurchase(payload: any) {
+
+    const headers = {
+        'Content-Type': 'application/json',
+      };
+
+    const response = await axios.post(`${api.baseURL}/pedidos`,payload,{
+        headers: headers
+    });
+    return response.data;
+}
+

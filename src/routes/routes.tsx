@@ -10,6 +10,7 @@ const FunPage = React.lazy(() => import('../pages/Fun/Fun'));
 const MyOrdersPage = React.lazy(() => import('../pages/MyOrders/MyOrders'));
 const RestaurantsPage = React.lazy(() => import('../pages/Restaurants/Restaurants'));
 const DetailPage = React.lazy(() => import('../pages/Detail/Detail'));
+const SuccessOrderPage = React.lazy(() => import('../pages/SuccessOrder/SuccessOrder'));
 
 const MainRoutes: FC = (props) => {
     return (
@@ -51,6 +52,14 @@ const MainRoutes: FC = (props) => {
             <Route path="/carrinho" element={<CartPage />}></Route>
 
             <Route path="/erro" element={<ErrorPage />}></Route>
+
+            <Route path="/comprovante/:idOrder"
+                element={
+                    <React.Suspense fallback={<>...</>}>
+                        <SuccessOrderPage />
+                    </React.Suspense>
+                }>
+            </Route>
         </Routes>
     )
 }

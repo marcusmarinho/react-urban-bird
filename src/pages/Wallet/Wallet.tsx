@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { FC, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/Button/Button';
@@ -6,6 +6,7 @@ import CollapBox from '../../components/CollapBox/CollapBox';
 import Modal from '../../components/Modal/Modal';
 import { EmptyContextProvider, WalletContextProvider } from "../../context/Wallet.context";
 import { WalletItem } from "../../models/wallet.model";
+import { accomplishPurchase } from '../../services/offer.service';
 import EmptyWalletPage from './EmptyWallet/EmptyWallet';
 import styles from "./Wallet.module.scss";
 
@@ -15,7 +16,12 @@ const CartPage: FC = (props) => {
 
     const { products, setProducts } = useContext(WalletContextProvider);
 
-    const {modal, setModal } = useContext(EmptyContextProvider);
+    const { modal, setModal } = useContext(EmptyContextProvider);
+
+    const [inputAddress, setInputAddress] = useState('');
+    const [inputNumber, setInputNumber] = useState('');
+    const [inputComplement, setInputComplement] = useState('');
+    const [inputPaymentMethod, setInputPaymentMethod] = useState('');
 
     function changeQuantity(itemCarrinho: WalletItem, soma?: boolean): void {
         const foundItemWallet = products.find((item: WalletItem) => item.id === itemCarrinho.id) || {
@@ -48,6 +54,25 @@ const CartPage: FC = (props) => {
         }
     }
 
+    async function submitPurchase() {
+
+        const payload = {
+            inputAddress,
+            inputNumber,
+            inputComplement,
+            inputPaymentMethod,
+            products
+        };
+        try {
+            let response = await accomplishPurchase(payload);
+            setModal('');
+            navigate(`/comprovante/${response.id}`);
+            return response;
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+
     function walletTotalPrice(): string {
         let total = 0;
         products?.forEach((item: WalletItem) => {
@@ -56,7 +81,7 @@ const CartPage: FC = (props) => {
         return total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
     }
 
-    function teste() {
+    function openModal() {
         setModal('two');
     }
 
@@ -65,38 +90,69 @@ const CartPage: FC = (props) => {
             <section className={styles.cWallet}>
                 <h2>Abaixo os produtos que você selecionou:</h2>
                 <div className={styles.divider}></div>
-                <CustomButton label='Finalizar Compra' onClickFunc={() => teste()}></CustomButton>
-                
+                <p>{walletTotalPrice()}</p>
+                <CustomButton label='Finalizar Compra' onClickFunc={() => openModal()}></CustomButton>
 
                 <Modal>
-                    <div>
-                        HUAHUAHUAHUAHUAHUAHUAH
-                    </div>
+
+                    <form className={styles.formWallet} action=''>
+                        <h2>Para finalizar a compra preencha o formulario abaixo:</h2>
+
+                        <div className={styles.customInput}>
+                            <label htmlFor='Endereco'>Endereço:</label>
+                            <input value={inputAddress} onChange={e => setInputAddress(e.target.value)} maxLength={100} autoComplete='off' type="text" id="Endereco" name="Endereco" />
+                        </div>
+
+                        <div className={styles.customInput}>
+                            <label htmlFor='number'>Número:</label>
+                            <input value={inputNumber} onChange={e => setInputNumber(e.target.value)} maxLength={4} type="number" id="number" name="number" />
+                        </div>
+
+                        <div className={styles.customInput}>
+                            <label htmlFor='Complemento'>Complemento:</label>
+                            <input value={inputComplement} onChange={e => setInputComplement(e.target.value)} maxLength={50} type="text" id="Complemento" name="Complemento" />
+                        </div>
+
+                        <div className={styles.customInput}>
+                        <label htmlFor='metPagamento'>Como vai Pagar:</label>
+                            <select value={inputPaymentMethod} onChange={e => setInputPaymentMethod(e.target.value)} id='metPagamento'>
+                                <option value="dinheiro">Dinheiro</option>
+                                <option value="debito">Débito</option>
+                                <option value="credito">Crédito</option>
+                                <option value="pix">pix</option>
+                            </select>
+                        </div>
+
+                    </form>
+                    <CustomButton label='Confirmar Compra' onClickFunc={() =>  submitPurchase()}></CustomButton>
+
                 </Modal>
 
-                {products?.map((wItem: WalletItem, idx: number) => {
-                    return (
-                        <div className={styles.cWalletContent} key={wItem.id}>
+                {
+                    products?.map((wItem: WalletItem, idx: number) => {
+                        return (
+                            <div className={styles.cWalletContent} key={wItem.id}>
 
-                            <CollapBox title={wItem.titulo}>
-                                <div className={styles.walletInfo}>
-                                    <div>
-                                        <p>Preço {wItem.valor}</p>
-                                        <p>Quantidade {wItem.quantidade}</p>
-                                        <p>Descrição: {wItem.descricao_oferta}</p>
+                                <CollapBox title={wItem.titulo}>
+                                    <div className={styles.walletInfo}>
+                                        <div>
+                                            <p>Preço {wItem.valor}</p>
+                                            <p>Quantidade {wItem.quantidade}</p>
+                                            <p>Descrição: {wItem.descricao_oferta}</p>
+                                        </div>
+
+                                        <div className={styles.walletButtons}>
+                                            <CustomButton label="+" onClickFunc={() => changeQuantity(wItem, true)}></CustomButton>
+                                            <CustomButton label="-" onClickFunc={() => changeQuantity(wItem, false)}></CustomButton>
+                                        </div>
                                     </div>
+                                </CollapBox>
 
-                                    <div className={styles.walletButtons}>
-                                        <CustomButton label="+" onClickFunc={() => changeQuantity(wItem, true)}></CustomButton>
-                                        <CustomButton label="-" onClickFunc={() => changeQuantity(wItem, false)}></CustomButton>
-                                    </div>
-                                </div>
-                            </CollapBox>
-
-                        </div>
-                    );
-                })}
-            </section> : <EmptyWalletPage></EmptyWalletPage>
+                            </div>
+                        );
+                    })
+                }
+            </section > : <EmptyWalletPage></EmptyWalletPage>
     )
 }
 
