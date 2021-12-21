@@ -54,23 +54,42 @@ const CartPage: FC = (props) => {
         }
     }
 
+    function validateForm(): boolean {
+        if (inputAddress && inputNumber && inputComplement && inputPaymentMethod) {
+           
+            
+            return true
+        } else return false;
+
+    }
+
     async function submitPurchase() {
 
-        const payload = {
-            inputAddress,
-            inputNumber,
-            inputComplement,
-            inputPaymentMethod,
-            products
-        };
-        try {
-            let response = await accomplishPurchase(payload);
-            setModal('');
-            navigate(`/comprovante/${response.id}`);
-            return response;
-        } catch (error) {
-            console.log('error', error);
+        if (validateForm()) {
+            const payload = {
+                inputAddress,
+                inputNumber,
+                inputComplement,
+                inputPaymentMethod,
+                products
+            };
+
+            try {
+                let response = await accomplishPurchase(payload);
+                setModal('');
+                console.log(response);
+                
+                navigate(`/comprovante/${response.id}`);
+                return response;
+            } catch (error) {
+                console.log('error', error);
+            }
+        } else {
+            console.log(inputPaymentMethod);
+            alert('preencha todos os campos');
         }
+
+
     }
 
     function walletTotalPrice(): string {
@@ -95,12 +114,12 @@ const CartPage: FC = (props) => {
 
                 <Modal>
 
-                    <form className={styles.formWallet} action=''>
+                    <form className={styles.formWallet}>
                         <h2>Para finalizar a compra preencha o formulario abaixo:</h2>
 
                         <div className={styles.customInput}>
-                            <label htmlFor='Endereco'>Endereço:</label>
-                            <input value={inputAddress} onChange={e => setInputAddress(e.target.value)} maxLength={100} autoComplete='off' type="text" id="Endereco" name="Endereco" />
+                            <label htmlFor='address'>Endereço:</label>
+                            <input required value={inputAddress} onChange={e => setInputAddress(e.target.value)} maxLength={100} autoComplete='off' type="text" id="address" name="address" />
                         </div>
 
                         <div className={styles.customInput}>
@@ -110,12 +129,13 @@ const CartPage: FC = (props) => {
 
                         <div className={styles.customInput}>
                             <label htmlFor='Complemento'>Complemento:</label>
-                            <input value={inputComplement} onChange={e => setInputComplement(e.target.value)} maxLength={50} type="text" id="Complemento" name="Complemento" />
+                            <input value={inputComplement} onChange={e => setInputComplement(e.target.value)} maxLength={50} type="text" id="complement" name="complement" />
                         </div>
 
                         <div className={styles.customInput}>
-                        <label htmlFor='metPagamento'>Como vai Pagar:</label>
-                            <select value={inputPaymentMethod} onChange={e => setInputPaymentMethod(e.target.value)} id='metPagamento'>
+                            <label htmlFor='metPagamento'>Como vai Pagar:</label>
+                            <select value={inputPaymentMethod} onChange={e => setInputPaymentMethod(e.target.value)} id='purchaseMethod'>
+                                <option value="" selected disabled hidden>Selecione a forma de pagamento:</option>
                                 <option value="dinheiro">Dinheiro</option>
                                 <option value="debito">Débito</option>
                                 <option value="credito">Crédito</option>
@@ -124,7 +144,7 @@ const CartPage: FC = (props) => {
                         </div>
 
                     </form>
-                    <CustomButton label='Confirmar Compra' onClickFunc={() =>  submitPurchase()}></CustomButton>
+                    <CustomButton label='Confirmar Compra' onClickFunc={() => submitPurchase()}></CustomButton>
 
                 </Modal>
 
@@ -152,7 +172,7 @@ const CartPage: FC = (props) => {
                         );
                     })
                 }
-            </section > : <EmptyWalletPage></EmptyWalletPage>
+            </section> : <EmptyWalletPage></EmptyWalletPage>
     )
 }
 

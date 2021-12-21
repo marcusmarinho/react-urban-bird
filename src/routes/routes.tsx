@@ -49,7 +49,7 @@ const MainRoutes: FC = (props) => {
                 }>
             </Route>
 
-            <Route path="/carrinho" element={<CartPage />}></Route>
+            <Route path="/sacola" element={<CartPage />}></Route>
 
             <Route path="/erro" element={<ErrorPage />}></Route>
 

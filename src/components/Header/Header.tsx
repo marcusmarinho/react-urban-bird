@@ -15,7 +15,7 @@ const Header:FC = (props) => {
             <NavLink to='/restaurantes'>Restaurantes</NavLink>
             <NavLink to='/diversao' >Diversão</NavLink>
             <NavLink to='/pedidos' >Pedidos</NavLink>
-            <div onClick={() => navigate('/carrinho')} className={animate === true ? styles.walletIcoSwing : styles.walletIco}></div>
+            <div onClick={() => navigate('/sacola')} className={animate === true ? styles.walletIcoSwing : styles.walletIco}></div>
         </nav>
     );
 }
