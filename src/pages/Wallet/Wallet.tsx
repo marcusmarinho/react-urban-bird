@@ -77,9 +77,8 @@ const CartPage: FC = (props) => {
             try {
                 let response = await accomplishPurchase(payload);
                 setModal('');
-                console.log(response);
-                
                 navigate(`/comprovante/${response.id}`);
+                setProducts([]);
                 return response;
             } catch (error) {
                 console.log('error', error);
@@ -101,7 +100,7 @@ const CartPage: FC = (props) => {
     }
 
     function openModal() {
-        setModal('two');
+        setModal('show');
     }
 
     return (

@@ -9,7 +9,7 @@ const Modal: FC = (props) => {
 
     function close () {
         if (modal === '') {
-            setModal('two');
+            setModal('show');
         } else {
             setModal('');
         }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { FC, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import CustomButton from "../../components/Button/Button";
