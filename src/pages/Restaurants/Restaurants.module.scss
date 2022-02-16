@@ -1,0 +1,27 @@
+.cCard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    min-height: 26.75rem;
+    min-width: 20.5rem;
+    max-height: 26.75rem;
+    max-width: 20.5rem;
+  
+    h2 {
+        font-weight: 600;
+        font-size: 26px;
+    }
+
+    .cardSubtitle {
+        font-weight: 600;
+        font-size: 18px;
+    }
+}

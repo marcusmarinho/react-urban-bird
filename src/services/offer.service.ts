@@ -6,8 +6,18 @@ export const getOffers = axios.get(`${api.baseURL}/ofertas`).then(
         return response.data;
     }
 ).catch((err) => {
-    throw(err);
+    throw (err);
 })
+
+export async function getOfferByCategory(category: string) {
+
+    const response = await axios.get(`${api.baseURL}/ofertas`, {
+        params: {
+            categoria: category
+        }
+    });
+    return response.data;
+}
 
 export async function getAddtionalInfo(offerId: any) {
     const response = await axios.get(`${api.baseURL}/como-usar/${offerId}`);
@@ -28,9 +38,9 @@ export async function accomplishPurchase(payload: any) {
 
     const headers = {
         'Content-Type': 'application/json',
-      };
+    };
 
-    const response = await axios.post(`${api.baseURL}/pedidos`,payload,{
+    const response = await axios.post(`${api.baseURL}/pedidos`, payload, {
         headers: headers
     });
     return response.data;
