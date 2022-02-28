@@ -1,22 +1,31 @@
-import React, { useEffect, useState } from 'react';
 import { FC } from "react";
 import { useNavigate } from 'react-router-dom';
 import Card from '../../components/Card/Card';
 import Loader from '../../components/Loader/Loader';
 import { OfferItem } from '../../models/offer-item.models';
-import { getOfferByCategory } from '../../services/offer.service';
 import styles from "./Fun.module.scss";
 
 import img4 from '../../assets/ofertas/4/img1.jpg';
 import img5 from '../../assets/ofertas/5/img1.jpg';
 import img6 from '../../assets/ofertas/6/img1.jpg';
 
-const FunPage:FC = (props) => {
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
-    const [offers, setOffer] = useState([]);
-    const [loader, setLoaderState] = useState(true);
+const FunPage: FC = (props) => {
 
     const imgArray = [img4, img5, img6];
+
+    const { data, isFetching } = useQuery('funList', async () => {
+        const response = await axios.get('https://app2jsonserver.herokuapp.com/ofertas', {
+            params: {
+                categoria: 'diversao'
+            }
+        });
+        return response.data;
+    }, {
+        staleTime: 1000 * 60 // 1minute
+    })
 
     const navigate = useNavigate();
 
@@ -24,26 +33,10 @@ const FunPage:FC = (props) => {
         navigate(`/detalhe/${offerId}`);
     }
 
-    async function getFun() {
-        try {
-            let response = await getOfferByCategory('diversao');
-            setOffer(response);
-            setLoaderState(false);
-            return response;
-        } catch (error) {
-            setLoaderState(false);
-            navigate('/erro');
-        }
-    }
-
-    useEffect(() => {
-        getFun();
-    }, []);
-
     return (
-        offers.length !== 0 ?
+        data ?
             <section className={styles.cCard}>
-                {offers.map((offerItem: OfferItem, idx: number) => {
+                {data.map((offerItem: OfferItem, idx: number) => {
                     return (
                         <div key={offerItem.id} onClick={() => navigateToDetail(offerItem.id)}>
                             <Card style="styles.contentH">
@@ -55,9 +48,9 @@ const FunPage:FC = (props) => {
                                 </div>
                             </Card>
                         </div>
-                    );
-                })};
-            </section> : <Loader isLoading={loader}></Loader>
+                    )
+                })}
+            </section> : <Loader isLoading={isFetching}></Loader>
     );
 }
 

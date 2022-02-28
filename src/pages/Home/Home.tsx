@@ -45,6 +45,7 @@ const HomePage: FC = (props) => {
     }, []);
 
     return (
+
         offers.length !== 0 ?
             <section className={styles.cCard}>
                 {offers.map((offerItem: OfferItem, idx: number) => {
@@ -59,10 +60,10 @@ const HomePage: FC = (props) => {
                                 </div>
                             </Card>
                         </div>
-                    );
-                })};
+                    )
+                })}
             </section> : <Loader isLoading={loader}></Loader>
-    );
+    )
 }
 
 export default HomePage;

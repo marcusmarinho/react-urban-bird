@@ -3,7 +3,8 @@ import './App.scss';
 import Header from './components/Header/Header';
 import { WalletContextProvider, EmptyContextProvider } from './context/Wallet.context';
 import MainRoutes from './routes/routes';
-
+import { QueryClientProvider } from 'react-query';
+import { queryClient } from './services/queryClient';
 export default function App() {
   useContext(EmptyContextProvider);
   useContext(WalletContextProvider);
@@ -12,15 +13,16 @@ export default function App() {
   const [products, setProducts] = useState([]);
   return (
     <section>
-        <EmptyContextProvider.Provider value={{ animate, setAnimateWallet, modal, setModal }}>
-          <WalletContextProvider.Provider value={{ products, setProducts }}>
-          <Header />
-          <div className="container">
-            <MainRoutes />
-          </div>
-          </WalletContextProvider.Provider>
-        </EmptyContextProvider.Provider>
-
+      <EmptyContextProvider.Provider value={{ animate, setAnimateWallet, modal, setModal }}>
+        <WalletContextProvider.Provider value={{ products, setProducts }}>
+          <QueryClientProvider client={queryClient}>
+            <Header />
+            <div className="container">
+              <MainRoutes />
+            </div>
+          </QueryClientProvider>
+        </WalletContextProvider.Provider>
+      </EmptyContextProvider.Provider>
     </section>
   )
 }
